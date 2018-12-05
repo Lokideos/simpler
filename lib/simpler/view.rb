@@ -10,7 +10,12 @@ module Simpler
     end
 
     def render(binding)
-      return send render_type.downcase.to_sym, render_type_options if render_type
+      setup_logger
+
+      if render_type
+        @application_logger.log_response_body(render_type_options)
+        return send render_type.downcase.to_sym, render_type_options 
+      end
 
       template = File.read(template_path)
 
@@ -18,6 +23,11 @@ module Simpler
     end
 
     private
+
+    def setup_logger
+      Dir["#{Simpler.root}/middleware/*.rb"].each { |file| require file }
+      @application_logger = ApplicationLogger.new(nil, logdev: File.expand_path("#{Simpler.root}/log/app.log", __dir__))
+    end
 
     def controller
       @env['simpler.controller']
@@ -41,6 +51,7 @@ module Simpler
 
     def template_path
       path = template || [controller.name, action].join('/')
+      @application_logger.log_response_body(path + ".html.erb")
 
       Simpler.root.join(VIEW_BASE_PATH, "#{path}.html.erb")
     end

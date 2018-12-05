@@ -20,6 +20,7 @@ module Simpler
       setup_database
       require_app
       require_routes
+      setup_logger
     end
 
     def routes(&block)
@@ -30,6 +31,8 @@ module Simpler
       route = @router.route_for(env)
       controller = route.controller.new(env)
       action = route.action
+
+      @application_logger.log_handler(controller, action)
 
       make_response(controller, action)
 
@@ -42,6 +45,11 @@ module Simpler
     end
 
     private
+
+    def setup_logger
+      Dir["#{Simpler.root}/middleware/*.rb"].each { |file| require file }
+      @application_logger = ApplicationLogger.new(nil, logdev: File.expand_path("#{Simpler.root}/log/app.log", __dir__))
+    end
 
     def require_app
       Dir["#{Simpler.root}/app/**/*.rb"].each { |file| require file }

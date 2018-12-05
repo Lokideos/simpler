@@ -14,18 +14,29 @@ module Simpler
     end
 
     def make_response(action)
+      setup_logger
       @request.env['simpler.controller'] = self
       @request.env['simpler.action'] = action
 
       set_default_headers
       get_ids
+
+      @application_logger.log_params(@request.params)
       send(action)
       set_status
+
+      @application_logger.log_response(response)
       write_response
+
       @response.finish
     end
 
     private
+
+    def setup_logger
+      Dir["#{Simpler.root}/middleware/*.rb"].each { |file| require file }
+      @application_logger = ApplicationLogger.new(nil, logdev: File.expand_path("#{Simpler.root}/log/app.log", __dir__))
+    end
 
     def get_ids
       path = @request.path
