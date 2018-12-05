@@ -3,6 +3,8 @@ require_relative 'router/route'
 module Simpler
   class Router
 
+    ID_REGEXP = /\/[0-9]+/
+
     def initialize
       @routes = []
     end
@@ -17,12 +19,19 @@ module Simpler
 
     def route_for(env)
       method = env['REQUEST_METHOD'].downcase.to_sym
-      path = env['PATH_INFO']
+      path = get_path(env['PATH_INFO'])
 
       @routes.find { |route| route.match?(method, path) }
     end
 
     private
+
+    def get_path(path)
+      return path unless path.match?(ID_REGEXP)
+
+      id_path = path.gsub(ID_REGEXP, '/:id')
+      id_path
+    end
 
     def add_route(method, path, route_point)
       route_point = route_point.split('#')

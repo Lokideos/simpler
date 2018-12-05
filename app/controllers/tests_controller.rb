@@ -7,8 +7,18 @@ class TestsController < Simpler::Controller
     render plain: "That's plain \n"
   end
 
+  def show
+    render plain: "I'm show action\nThe id of this request is #{find_test_id}\n"
+  end
+
   def create
 
+  end
+
+  private
+
+  def find_test_id
+    params["test_id"].to_i
   end
 
 end
