@@ -24,6 +24,12 @@ module Simpler
 
     private
 
+    def set_custom_headers(headers)
+      headers.each do |header|
+        @response[header.first] = header.last
+      end
+    end
+
     def extract_name
       self.class.name.match('(?<name>.+)Controller')[:name].downcase
     end
