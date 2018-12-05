@@ -46,8 +46,13 @@ module Simpler
       @request.params
     end
 
-    def render(template)
-      @request.env['simpler.template'] = template
+    def render(*options)
+      if options.first.class.to_s == "String"
+        @request.env['simpler.template'] = options.first
+      elsif options.first.keys.first.class.to_s == "Symbol"
+        @request.env['simpler.render_type'] = options.first.keys.first
+        @request.env['simpler.render_type_options'] = options.first.values.first
+      end
     end
 
   end
