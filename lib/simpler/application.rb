@@ -32,6 +32,13 @@ module Simpler
       action = route.action
 
       make_response(controller, action)
+
+    rescue NoMethodError => e
+        [
+          404, 
+          {"Content-Type" => "text/html"}, 
+          ["Couldn't connect to the desired URL.\nMessage is the following:\n'#{e.message}'\n"]
+        ]
     end
 
     private
