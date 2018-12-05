@@ -17,8 +17,8 @@ module Simpler
 
       set_default_headers
       send(action)
+      set_status
       write_response
-
       @response.finish
     end
 
@@ -53,6 +53,14 @@ module Simpler
         @request.env['simpler.render_type'] = options.first.keys.first
         @request.env['simpler.render_type_options'] = options.first.values.first
       end
+    end
+
+    def set_status
+      @response.status = @request.env['simpler.status_code'] || 200
+    end
+
+    def status(status_code)
+      @request.env['simpler.status_code'] = status_code
     end
 
   end
