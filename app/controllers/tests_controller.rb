@@ -18,7 +18,7 @@ class TestsController < Simpler::Controller
   private
 
   def find_test_id
-    params["test_id"].to_i
+    params["test"].to_i
   end
 
 end

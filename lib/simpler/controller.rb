@@ -37,7 +37,7 @@ module Simpler
     end
 
     def set_params
-      params.merge!(@request.env['id_stash'])
+      params.merge!(@request.env['params_stash'])
     end
 
     def set_custom_headers(headers)
