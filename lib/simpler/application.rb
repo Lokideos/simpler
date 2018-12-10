@@ -29,22 +29,26 @@ module Simpler
 
     def call(env)
       route = @router.route_for(env)
+
+      return route_does_not_exist(env['PATH_INFO'][1..-2]) unless route
+
       controller = route.controller.new(env)
       action = route.action
 
       @application_logger.log_handler(controller, action)
 
       make_response(controller, action)
-
-    rescue NoMethodError => e
-        [
-          404, 
-          {"Content-Type" => "text/html"}, 
-          ["Couldn't connect to the desired URL.\nMessage is the following:\n'#{e.message}'\n"]
-        ]
     end
 
     private
+
+    def route_does_not_exist(resource_name)
+      [
+        404, 
+        {"Content-Type" => "text/html"}, 
+        ["Couldn't connect to the desired URL.\nResource '#{resource_name.upcase}' doesn't exist\n"]
+      ]
+    end
 
     def setup_logger
       Dir["#{Simpler.root}/middleware/*.rb"].each { |file| require file }

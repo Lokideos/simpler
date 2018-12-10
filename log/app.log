@@ -39,3 +39,88 @@ I, [2018-12-05T20:41:52.615192 #10849]  INFO -- : Handler: TestsController#index
 I, [2018-12-05T20:41:52.616251 #10849]  INFO -- : Parameters: {}
 I, [2018-12-05T20:41:52.616514 #10849]  INFO -- : Response: status 201 response-type text/html 
 I, [2018-12-05T20:41:52.616951 #10849]  INFO -- : Response: response-body tests/index.html.erb
+I, [2018-12-10T17:36:08.667009 #3022]  INFO -- : Request: GET /
+I, [2018-12-10T17:36:16.837033 #3022]  INFO -- : Request: GET /test
+I, [2018-12-10T17:36:18.396071 #3022]  INFO -- : Request: GET /tests
+I, [2018-12-10T17:36:18.400218 #3022]  INFO -- : Handler: TestsController#index
+I, [2018-12-10T17:36:18.401712 #3022]  INFO -- : Parameters: {}
+I, [2018-12-10T17:36:18.401834 #3022]  INFO -- : Response: status 201 response-type text/html 
+I, [2018-12-10T17:36:18.402079 #3022]  INFO -- : Response: response-body tests/index.html.erb
+I, [2018-12-10T17:36:21.880644 #3022]  INFO -- : Request: GET /tests/1
+I, [2018-12-10T17:36:21.880848 #3022]  INFO -- : Handler: TestsController#show
+I, [2018-12-10T17:36:21.881230 #3022]  INFO -- : Parameters: {"test_id"=>"1"}
+I, [2018-12-10T17:36:21.881327 #3022]  INFO -- : Response: status 200 response-type text/html 
+I, [2018-12-10T17:36:21.881576 #3022]  INFO -- : Response: response-body I'm show action
+The id of this request is 1
+
+I, [2018-12-10T17:36:24.149591 #3022]  INFO -- : Request: GET /tests/13
+I, [2018-12-10T17:36:24.150869 #3022]  INFO -- : Handler: TestsController#show
+I, [2018-12-10T17:36:24.151183 #3022]  INFO -- : Parameters: {"test_id"=>"13"}
+I, [2018-12-10T17:36:24.151273 #3022]  INFO -- : Response: status 200 response-type text/html 
+I, [2018-12-10T17:36:24.151514 #3022]  INFO -- : Response: response-body I'm show action
+The id of this request is 13
+
+I, [2018-12-10T17:36:25.832281 #3022]  INFO -- : Request: GET /tests/1334534
+I, [2018-12-10T17:36:25.832659 #3022]  INFO -- : Handler: TestsController#show
+I, [2018-12-10T17:36:25.833025 #3022]  INFO -- : Parameters: {"test_id"=>"1334534"}
+I, [2018-12-10T17:36:25.833180 #3022]  INFO -- : Response: status 200 response-type text/html 
+I, [2018-12-10T17:36:25.833446 #3022]  INFO -- : Response: response-body I'm show action
+The id of this request is 1334534
+
+I, [2018-12-10T17:36:27.471956 #3022]  INFO -- : Request: GET /tests/1334534/
+I, [2018-12-10T17:36:27.472248 #3022]  INFO -- : Handler: TestsController#show
+I, [2018-12-10T17:36:27.472598 #3022]  INFO -- : Parameters: {"test_id"=>"1334534"}
+I, [2018-12-10T17:36:27.472688 #3022]  INFO -- : Response: status 200 response-type text/html 
+I, [2018-12-10T17:36:27.472883 #3022]  INFO -- : Response: response-body I'm show action
+The id of this request is 1334534
+
+I, [2018-12-10T17:36:29.549829 #3022]  INFO -- : Request: GET /tests/1334534/dsf
+I, [2018-12-10T17:42:13.437195 #3103]  INFO -- : Request: GET /tests/1334534/
+I, [2018-12-10T17:42:13.440681 #3103]  INFO -- : Handler: TestsController#show
+I, [2018-12-10T17:42:13.441061 #3103]  INFO -- : Parameters: {"test_id"=>"1334534"}
+I, [2018-12-10T17:42:13.441188 #3103]  INFO -- : Response: status 200 response-type text/html 
+I, [2018-12-10T17:42:13.441410 #3103]  INFO -- : Response: response-body I'm show action
+The id of this request is 1334534
+
+I, [2018-12-10T17:42:17.209526 #3103]  INFO -- : Request: GET /te/
+I, [2018-12-10T17:45:24.914826 #3141]  INFO -- : Request: GET /te/
+I, [2018-12-10T17:45:28.763007 #3141]  INFO -- : Request: GET /tests/
+I, [2018-12-10T17:45:28.766058 #3141]  INFO -- : Handler: TestsController#index
+I, [2018-12-10T17:45:28.766461 #3141]  INFO -- : Parameters: {}
+I, [2018-12-10T17:45:28.766558 #3141]  INFO -- : Response: status 201 response-type text/html 
+I, [2018-12-10T17:45:28.766818 #3141]  INFO -- : Response: response-body tests/index.html.erb
+I, [2018-12-10T17:46:16.913556 #3176]  INFO -- : Request: GET /tests/
+I, [2018-12-10T17:46:16.916631 #3176]  INFO -- : Handler: TestsController#index
+I, [2018-12-10T17:46:16.917017 #3176]  INFO -- : Parameters: {}
+I, [2018-12-10T17:46:16.917147 #3176]  INFO -- : Response: status 201 response-type text/html 
+I, [2018-12-10T17:46:16.917408 #3176]  INFO -- : Response: response-body tests/index.html.erb
+I, [2018-12-10T17:46:18.897965 #3176]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:47:02.990115 #3203]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:47:09.543465 #3217]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:47:11.315140 #3217]  INFO -- : Request: GET /tests/
+I, [2018-12-10T17:47:11.318177 #3217]  INFO -- : Handler: TestsController#index
+I, [2018-12-10T17:47:11.318539 #3217]  INFO -- : Parameters: {}
+I, [2018-12-10T17:47:11.318638 #3217]  INFO -- : Response: status 201 response-type text/html 
+I, [2018-12-10T17:47:11.318953 #3217]  INFO -- : Response: response-body tests/index.html.erb
+I, [2018-12-10T17:47:32.619689 #3238]  INFO -- : Request: GET /tests/
+I, [2018-12-10T17:47:32.623976 #3238]  INFO -- : Handler: TestsController#index
+I, [2018-12-10T17:47:32.624343 #3238]  INFO -- : Parameters: {}
+I, [2018-12-10T17:47:32.624440 #3238]  INFO -- : Response: status 201 response-type text/html 
+I, [2018-12-10T17:47:32.624730 #3238]  INFO -- : Response: response-body tests/index.html.erb
+I, [2018-12-10T17:47:35.503253 #3238]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:48:05.148431 #3256]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:48:16.674271 #3274]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:48:22.454382 #3284]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:48:45.041108 #3303]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:48:56.946709 #3303]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:49:00.830762 #3328]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:49:15.224864 #3347]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:49:25.659473 #3361]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:50:06.061986 #3378]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:51:51.740178 #3422]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:52:29.483414 #3449]  INFO -- : Request: GET /tes/
+I, [2018-12-10T17:52:33.549050 #3449]  INFO -- : Request: GET /tests/
+I, [2018-12-10T17:52:33.552238 #3449]  INFO -- : Handler: TestsController#index
+I, [2018-12-10T17:52:33.552598 #3449]  INFO -- : Parameters: {}
+I, [2018-12-10T17:52:33.552700 #3449]  INFO -- : Response: status 201 response-type text/html 
+I, [2018-12-10T17:52:33.552967 #3449]  INFO -- : Response: response-body tests/index.html.erb
