@@ -3,8 +3,6 @@ require_relative 'view'
 module Simpler
   class Controller
 
-    ID_TYPE_REGEXP = /^\/[a-z]+\/[0-9]+/
-
     attr_reader :name, :request, :response
 
     def initialize(env)
@@ -19,7 +17,7 @@ module Simpler
       @request.env['simpler.action'] = action
 
       set_default_headers
-      get_ids
+      set_params
 
       @application_logger.log_params(@request.params)
       send(action)
@@ -38,18 +36,8 @@ module Simpler
       @application_logger = ApplicationLogger.new(nil, logdev: File.expand_path("#{Simpler.root}/log/app.log", __dir__))
     end
 
-    def get_ids
-      path = @request.path
-
-      while path.match?(ID_TYPE_REGEXP) do 
-        ids = path.match(ID_TYPE_REGEXP).to_s[1..-1].split("/")
-        add_id_to_params(ids[0], ids[1])
-        path.gsub!(ID_TYPE_REGEXP, "")
-      end
-    end
-
-    def add_id_to_params(id_type, id)
-      params[id_type[0..-2] + "_id"] = id
+    def set_params
+      params.merge!(@request.env['id_stash'])
     end
 
     def set_custom_headers(headers)
