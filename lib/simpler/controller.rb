@@ -21,7 +21,6 @@ module Simpler
 
       @application_logger.log_params(@request.params)
       send(action)
-      set_status
 
       @application_logger.log_response(response)
       write_response
@@ -77,12 +76,8 @@ module Simpler
       end
     end
 
-    def set_status
-      @response.status = @request.env['simpler.status_code'] || 200
-    end
-
     def status(status_code)
-      @request.env['simpler.status_code'] = status_code
+      @response.status = status_code || 200
     end
 
   end
