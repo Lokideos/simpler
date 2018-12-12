@@ -7,12 +7,20 @@ class ApplicationLogger
   end
 
   def call(env)
-    compile_information(env)
-    @app.call(env)
+    status, headers, body = @app.call(env)    
+    @logger.info(format_message(env))
+    p env['simpler.template_path']
+    [status, headers, body]
   end
 
-  def compile_information(env)
-    @logger.info("Request: #{env["REQUEST_METHOD"]} #{env["PATH_INFO"]}")
+  def format_message(env)
+    @logger.info("\nRequest: #{env['REQUEST_METHOD']} " +
+                 "#{env["simpler.controller"].request.env['REQUEST_PATH']}\n" +
+                 "Handler: #{env['simpler.controller'].class}##{env['simpler.action']}\n" +
+                 "Parameters: #{env["simpler.controller"].request.params}\n" +
+                 "Response: #{env["simpler.controller"].response.status} " +
+                 "[#{env["simpler.controller"].response.header['Content-Type']}] " +
+                 "#{env['simpler.template_path']}")
   end
 
   def log_handler(handler, action)

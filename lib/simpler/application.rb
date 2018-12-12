@@ -20,7 +20,6 @@ module Simpler
       setup_database
       require_app
       require_routes
-      setup_logger
     end
 
     def routes(&block)
@@ -30,12 +29,10 @@ module Simpler
     def call(env)
       route = @router.route_for(env)
 
-      return route_does_not_exist(env['PATH_INFO'][1..-2]) unless route
+      return route_does_not_exist(env['PATH_INFO'][1..-1]) unless route
 
       controller = route.controller.new(env)
       action = route.action
-
-      @application_logger.log_handler(controller, action)
 
       make_response(controller, action)
     end
@@ -48,11 +45,6 @@ module Simpler
         {"Content-Type" => "text/html"}, 
         ["Couldn't connect to the desired URL.\nResource '#{resource_name.upcase}' doesn't exist\n"]
       ]
-    end
-
-    def setup_logger
-      Dir["#{Simpler.root}/middleware/*.rb"].each { |file| require file }
-      @application_logger = ApplicationLogger.new(nil, logdev: File.expand_path("#{Simpler.root}/log/app.log", __dir__))
     end
 
     def require_app
