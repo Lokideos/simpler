@@ -9,7 +9,6 @@ class ApplicationLogger
   def call(env)
     status, headers, body = @app.call(env)    
     @logger.info(format_message(env))
-    p env['simpler.template_path']
     [status, headers, body]
   end
 
