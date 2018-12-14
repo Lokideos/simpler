@@ -8,19 +8,20 @@ module Simpler
     VIEW_BASE_PATH = 'app/views'.freeze
 
     RENDER_TYPES = {
-      plain: "PlainTextRenderer",
-      html: "HTMLRenderer",
-      default: "HTMLRenderer"
+      plain: PlainTextRenderer,
+      html: HTMLRenderer
     }.freeze
+
+    DEFAULT_RENDER_TYPE = RENDER_TYPES[:html]
 
     def initialize(env)
       @env = env
     end
 
     def render(binding)
-      return eval(RENDER_TYPES[render_type.downcase.to_sym]).new(@env, render_type_options).render if render_type
+      return RENDER_TYPES[render_type.downcase.to_sym].new(@env, render_type_options).render if render_type
 
-      eval(RENDER_TYPES[:default]).new(@env).render
+      DEFAULT_RENDER_TYPE.new(@env).render
     end
 
     private
