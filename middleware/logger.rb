@@ -8,7 +8,6 @@ class ApplicationLogger
 
   def call(env)
     status, headers, body = @app.call(env)
-    p env
     @logger.info(format_message(env))
     [status, headers, body]
   end

@@ -29,7 +29,7 @@ module Simpler
     def call(env)
       route = @router.route_for(env)
 
-      return route_does_not_exist(env['PATH_INFO'][1..-1]) unless route
+      return not_found_response(env) unless route
 
       controller = route.controller.new(env)
       action = route.action
@@ -39,11 +39,11 @@ module Simpler
 
     private
 
-    def route_does_not_exist(resource_name)
+    def not_found_response(env)
       [
         404, 
         {"Content-Type" => "text/html"}, 
-        ["Couldn't connect to the desired URL.\nResource '#{resource_name.upcase}' doesn't exist\n"]
+        ["Couldn't connect to the desired URL.\nResource '#{ env['PATH_INFO'][1..-1] }' doesn't exist\n"]
       ]
     end
 
