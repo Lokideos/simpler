@@ -16,7 +16,7 @@ module Simpler
       @request.env['simpler.action'] = action
 
       set_default_headers
-      set_params
+      get_params
 
       send(action)
 
@@ -27,7 +27,7 @@ module Simpler
 
     private
 
-    def set_params
+    def get_params
       params.merge!(@request.env['params_stash'])
     end
 
