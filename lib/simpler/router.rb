@@ -21,7 +21,6 @@ module Simpler
     def route_for(env)
       method = env['REQUEST_METHOD'].downcase.to_sym
       path = get_path(env['PATH_INFO'])
-      env['params_stash'] = {}
       get_params(env)
 
       @routes.find { |route| route.match?(method, path) }
@@ -31,6 +30,7 @@ module Simpler
 
     def get_params(env)
       path = env['PATH_INFO']
+      env['params_stash'] ||= {}
 
       while path.match?(PARAM_TYPE_REGEXP) do 
         params = path.match(PARAM_TYPE_REGEXP).to_s[1..-1].split("/")
