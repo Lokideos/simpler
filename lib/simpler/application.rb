@@ -43,7 +43,7 @@ module Simpler
       [
         404, 
         {"Content-Type" => "text/html"}, 
-        ["Couldn't connect to the desired URL.\nResource '#{ env['PATH_INFO'][1..-1] }' doesn't exist\n"]
+        ["Couldn't connect to the desired URL.\nURL '#{ env['REQUEST_URI'] }' doesn't exist\n"]
       ]
     end
 
