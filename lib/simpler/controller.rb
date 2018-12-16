@@ -69,7 +69,7 @@ module Simpler
     end
 
     def status(status_code)
-      @response.status = status_code || 200
+      @response.status = status_code
     end
 
   end
