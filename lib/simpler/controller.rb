@@ -16,13 +16,26 @@ module Simpler
       @request.env['simpler.action'] = action
 
       set_default_headers
+      get_params
+
       send(action)
+
       write_response
 
       @response.finish
     end
 
     private
+
+    def get_params
+      params.merge!(@request.env['params_stash'])
+    end
+
+    def set_custom_headers(headers)
+      headers.each do |header|
+        @response[header.first] = header.last
+      end
+    end
 
     def extract_name
       self.class.name.match('(?<name>.+)Controller')[:name].downcase
@@ -46,8 +59,19 @@ module Simpler
       @request.params
     end
 
-    def render(template)
-      @request.env['simpler.template'] = template
+    def render(*options)
+      if options.first.kind_of?(String)
+        @request.env['simpler.template'] = options.first
+        @response['Content-Type'] = 'html'
+      elsif options.first.keys.first.kind_of?(Symbol)
+        @request.env['simpler.render_type'] = options.first.keys.first
+        @request.env['simpler.render_type_options'] = options.first.values.first
+        @response['Content-Type'] = 'text'
+      end
+    end
+
+    def status(status_code)
+      @response.status = status_code
     end
 
   end

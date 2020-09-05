@@ -28,6 +28,9 @@ module Simpler
 
     def call(env)
       route = @router.route_for(env)
+
+      return not_found_response(env) unless route
+
       controller = route.controller.new(env)
       action = route.action
 
@@ -35,6 +38,14 @@ module Simpler
     end
 
     private
+
+    def not_found_response(env)
+      [
+        404, 
+        {"Content-Type" => "text/html"}, 
+        ["Couldn't connect to the desired URL.\nURL '#{ env['REQUEST_URI'] }' doesn't exist\n"]
+      ]
+    end
 
     def require_app
       Dir["#{Simpler.root}/app/**/*.rb"].each { |file| require file }
